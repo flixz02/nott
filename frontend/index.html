@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Time Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-inter text-gray-800 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div id="app-container" class="bg-white shadow-xl rounded-lg p-6 md:p-8 w-full max-w-md">
+        <header class="text-center mb-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-blue-600">Work Time Tracker</h1>
+            <p id="currentTime" class="text-sm text-gray-500 mt-1">--:--:--</p>
+        </header>
+
+        <div id="loginSection">
+            <h2 class="text-xl font-semibold mb-3 text-center">Login</h2>
+            <input type="text" id="usernameInput" placeholder="Enter your username" class="w-full p-3 border border-gray-300 rounded-md mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-shadow">
+            <button id="loginButton" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-150 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Login
+            </button>
+            <p id="loginError" class="text-red-500 text-sm mt-2 text-center"></p>
+        </div>
+
+        <div id="trackerSection" class="hidden">
+            <div class="text-center mb-6">
+                <p class="text-lg">Welcome, <strong id="displayName" class="text-blue-700"></strong>!</p>
+                <p class="text-gray-600">Status: <strong id="workStatus" class="text-lg">--</strong></p>
+                <p class="text-gray-600">Worked Today: <strong id="workedTime" class="text-lg">00:00:00</strong></p>
+            </div>
+
+            <div id="actionButtons" class="grid grid-cols-2 gap-3 mb-6">
+                <button id="startButton" data-event="START" class="action-button bg-green-500 hover:bg-green-600">Start Work</button>
+                <button id="pauseButton" data-event="PAUSE" class="action-button bg-yellow-500 hover:bg-yellow-600">Pause Work</button>
+                <button id="resumeButton" data-event="RESUME" class="action-button bg-teal-500 hover:bg-teal-600">Resume Work</button>
+                <button id="endButton" data-event="END" class="action-button bg-red-500 hover:bg-red-600">End Work</button>
+            </div>
+            <p id="eventMessage" class="text-sm text-center text-gray-500 h-5"></p>
+
+            <div id="geminiFeatures" class="mt-6 pt-6 border-t border-gray-200">
+                <h3 class="text-md font-semibold mb-3 text-center text-purple-600">✨ AI Assistant</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button id="getQuoteButton" class="gemini-button bg-purple-500 hover:bg-purple-600">✨ Get Quote</button>
+                    <button id="planHourButton" class="gemini-button bg-indigo-500 hover:bg-indigo-600" style="display: none;">✨ Plan Next Hour</button>
+                </div>
+            </div>
+
+            <button id="logoutButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-150 ease-in-out shadow focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 mt-8">
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div id="geminiModal" class="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center hidden px-4 z-50">
+        <div class="bg-white p-5 md:p-6 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h4 id="geminiModalTitle" class="text-xl font-semibold text-gray-800">AI Suggestion</h4>
+                <button id="closeGeminiModal" class="text-gray-500 hover:text-gray-700 text-3xl leading-none font-bold">&times;</button>
+            </div>
+            <div id="geminiLoadingIndicator" class="hidden text-center py-4">
+                <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+                <p class="mt-3 text-sm text-gray-600">✨ Thinking...</p>
+            </div>
+            <div id="geminiModalBody" class="text-gray-700 whitespace-pre-wrap max-h-60vh overflow-y-auto">
+                </div>
+             <button id="copyGeminiResponseButton" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-150 ease-in-out shadow focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" style="display: none;">
+                Copy to Clipboard
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js"></script>
+</body>
+</html>
